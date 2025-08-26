@@ -21,6 +21,7 @@
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
         }
+        [x-cloak] { display: none !important; }
     </style>
 </head>
 <body class="bg-gray-50 text-gray-800">
@@ -159,20 +160,48 @@
                 <h2 class="text-3xl md:text-4xl font-bold text-gray-900">Quem Confia, Cresce</h2>
                 <p class="text-lg text-gray-600 mt-2">Veja quem já está acelerando as vendas conosco.</p>
             </div>
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-4xl mx-auto">
-                <!-- Testemunho 1 -->
-                <div class="bg-white p-8 rounded-xl shadow-lg">
-                    <img src="https://placehold.co/100x100/E0E7FF/4F46E5?text=JS" alt="Foto de João Silva" class="w-24 h-24 rounded-full mx-auto -mt-20 mb-4 border-4 border-white">
-                    <p class="text-gray-600 italic mb-4">"Depois que centralizamos tudo na plataforma, nossas vendas aumentaram 40% em 3 meses. A desorganização com leads do Instagram e WhatsApp simplesmente acabou."</p>
-                    <p class="font-bold text-right">- João Silva</p>
-                    <p class="text-sm text-gray-500 text-right">Diretor Comercial da Empresa X</p>
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 max-w-7xl mx-auto">
+                <!-- Testemunho 1 NOVO -->
+                <div class="bg-white p-8 rounded-xl shadow-lg flex flex-col">
+                    <img src="https://placehold.co/100x100/E0E7FF/4F46E5?text=GM" alt="Foto de Gleithon Moura" class="w-24 h-24 rounded-full mx-auto -mt-20 mb-4 border-4 border-white">
+                    <p class="text-gray-600 italic mb-4 flex-grow">"As soluções da CRM People trazem para o mercado de vendas e prospecção, uma inovação que eu ainda não tinha visto, combinado em uma única ferramenta, tudo que nós empreendedores precisamos para termos leads qualificados constantes e fechamento de negócios."</p>
+                    <p class="font-bold text-right">- Gleithon Moura</p>
+                    <p class="text-sm text-gray-500 text-right">Supervisor Reg. Vendas</p>
                 </div>
-                <!-- Testemunho 2 -->
-                <div class="bg-white p-8 rounded-xl shadow-lg">
-                    <img src="https://placehold.co/100x100/E0E7FF/4F46E5?text=MO" alt="Foto de Maria Oliveira" class="w-24 h-24 rounded-full mx-auto -mt-20 mb-4 border-4 border-white">
-                    <p class="text-gray-600 italic mb-4">"A visão completa do funil e os relatórios me deram o controle que eu precisava. Hoje, eu sei exatamente onde investir para crescer. É indispensável."</p>
-                    <p class="font-bold text-right">- Maria Oliveira</p>
-                    <p class="text-sm text-gray-500 text-right">CEO da Startup Y</p>
+                <!-- Testemunho 2 NOVO -->
+                <div class="bg-white p-8 rounded-xl shadow-lg flex flex-col">
+                    <img src="https://placehold.co/100x100/E0E7FF/4F46E5?text=PR" alt="Foto de Paulo Rocha" class="w-24 h-24 rounded-full mx-auto -mt-20 mb-4 border-4 border-white">
+                    <p class="text-gray-600 italic mb-4 flex-grow">"Seu foco em Go-to-Market e Sales Engagement tem mostrado resultados rápidos e impactantes, criando uma jornada de vendas personalizada que realmente gera valor. Mesmo com pouco tempo de colaboração, já percebo o valor agregado ao nosso time."</p>
+                    <p class="font-bold text-right">- Paulo Rocha</p>
+                    <p class="text-sm text-gray-500 text-right">Go-to-Market | B2B Sales</p>
+                </div>
+                <!-- Testemunho 3 -->
+                <div class="bg-white p-8 rounded-xl shadow-lg flex flex-col">
+                    <img src="https://placehold.co/100x100/E0E7FF/4F46E5?text=RC" alt="Foto de Ricardo Clemente" class="w-24 h-24 rounded-full mx-auto -mt-20 mb-4 border-4 border-white">
+                    <p class="text-gray-600 italic mb-4 flex-grow">"O CRM People não é simplesmente uma ferramenta, mas sim uma família que está pronta para ajudar os clientes a prosperarem juntos! A imersão de vendas da People Academy foi a mais completa e prática de todas!"</p>
+                    <p class="font-bold text-right">- Ricardo Clemente</p>
+                    <p class="text-sm text-gray-500 text-right">Inteligência Artificial | LLMs</p>
+                </div>
+                <!-- Testemunho 4 -->
+                <div class="bg-white p-8 rounded-xl shadow-lg flex flex-col">
+                    <img src="https://placehold.co/100x100/E0E7FF/4F46E5?text=VM" alt="Foto de Valter Medina" class="w-24 h-24 rounded-full mx-auto -mt-20 mb-4 border-4 border-white">
+                    <p class="text-gray-600 italic mb-4 flex-grow">"Fiquei totalmente surpreso com o conhecimento de vendas e com a ferramenta. Estamos dobrando nossas capacidades de atendimento a cada seis meses, graças à inteligência da ferramenta e metodologia implementadas."</p>
+                    <p class="font-bold text-right">- Valter Medina</p>
+                    <p class="text-sm text-gray-500 text-right">Enterprise Architecture Authority</p>
+                </div>
+                <!-- Testemunho 5 -->
+                <div class="bg-white p-8 rounded-xl shadow-lg flex flex-col">
+                    <img src="https://placehold.co/100x100/E0E7FF/4F46E5?text=LT" alt="Foto de Lucas Taube" class="w-24 h-24 rounded-full mx-auto -mt-20 mb-4 border-4 border-white">
+                    <p class="text-gray-600 italic mb-4 flex-grow">"Por ser um profissional fora da curva, desenvolveu um CRM e uma máquina de vendas altamente eficiente, muito eficaz e barato se comparado com o alto custo de equipes comerciais robustas. Recomendo para empresas que buscam resultados rápidos."</p>
+                    <p class="font-bold text-right">- Lucas Brayan Taube</p>
+                    <p class="text-sm text-gray-500 text-right">Fundador - CEO na Vendin Machine</p>
+                </div>
+                <!-- Testemunho 6 -->
+                <div class="bg-white p-8 rounded-xl shadow-lg flex flex-col">
+                    <img src="https://placehold.co/100x100/E0E7FF/4F46E5?text=KM" alt="Foto de Katia Martins" class="w-24 h-24 rounded-full mx-auto -mt-20 mb-4 border-4 border-white">
+                    <p class="text-gray-600 italic mb-4 flex-grow">"Átila vai muito além das técnicas. Ele te ensina a construir confiança, a escutar com propósito e a vender com verdade. Com ele, aprendi a estruturar funis e conduzir negociações mais seguras. Recomendo com entusiasmo!"</p>
+                    <p class="font-bold text-right">- Katia Martins</p>
+                    <p class="text-sm text-gray-500 text-right">CEO | Basco Rustic House</p>
                 </div>
             </div>
         </div>
@@ -247,7 +276,7 @@
                     <h3 class="text-2xl font-bold mb-2">Sales Stack for Growth</h3>
                     <p class="text-gray-600 mb-4">A plataforma completa para você e seu time executarem com maestria.</p>
                     <p class="text-4xl font-bold my-4">R$ 197<span class="text-lg font-medium text-gray-500">,00/mês por usuário</span></p>
-                    <a href="https://crmpeople.com.br/planos-partner/" target="_blank" class="w-full text-center bg-indigo-100 text-indigo-700 font-semibold py-3 rounded-lg hover:bg-indigo-200 transition-colors mb-6">Ver Demonstração</a>
+                    <a href="https://crmpeople.com.br/planos-partner/" target="_blank" class="w-full text-center bg-indigo-100 text-indigo-700 font-semibold py-3 rounded-lg hover:bg-indigo-200 transition-colors mb-6">Assistir Demonstração</a>
                     <div class="space-y-3 text-gray-700 flex-grow">
                         <p>✅ CRM Completo para gestão de clientes</p>
                         <p>✅ Suporte Técnico via chat por WhatsApp</p>
@@ -257,7 +286,7 @@
                         <p class="font-bold mt-4 pt-4 border-t">Módulos Opcionais:</p>
                         <p>➕ WhatsApp API Oficial (+ R$ 397/mês) <a href="https://support.crmpeople.com.br/hc/central-de-suporte/articles/1718049294-integracao-com-whats_app-business-api-via-meta" target="_blank" class="text-indigo-600 hover:underline text-sm ml-1">(Saiba mais)</a></p>
                         <p>➕ Telefonia VoIP com IA (+ R$ 70/mês por ramal)</p>
-                        <p>➕ Máquina de Prospecção LinkedIn (+ R$ 697/mês)</p>
+                        <p>➕ Máquina de Prospecção LinkedIn (+ R$ 697/mês) + <a href="https://business.linkedin.com/pt-br/sales-solutions/compare-plans" target="_blank" class="text-indigo-600 hover:underline">LinkedIn Sales Navigator Core</a></p>
                     </div>
                 </div>
 
@@ -317,7 +346,7 @@
 
     <!-- Seção 8: Perguntas Frequentes (FAQ) -->
     <section class="py-20 bg-white">
-        <div class="container mx-auto px-6 max-w-3xl">
+        <div class="container mx-auto px-6 max-w-4xl">
             <h2 class="text-3xl font-bold text-center mb-8">Perguntas Frequentes</h2>
             <div class="space-y-4" x-data="{ open: null }">
                 <!-- FAQ 1 -->
@@ -326,7 +355,7 @@
                         Meu suporte é gratuito? O WhatsApp é realmente oficial?
                         <span x-text="open === 1 ? '-' : '+'" class="text-xl"></span>
                     </button>
-                    <div x-show="open === 1" x-collapse class="p-4 pt-0 text-gray-600">
+                    <div x-show="open === 1" x-collapse x-cloak class="p-4 pt-0 text-gray-600">
                         Sim, nosso suporte via WhatsApp é gratuito para todos os planos. E sim, utilizamos a API Oficial do WhatsApp (Meta), garantindo estabilidade e segurança para sua comunicação.
                     </div>
                 </div>
@@ -336,7 +365,7 @@
                         Posso cancelar a qualquer momento?
                         <span x-text="open === 2 ? '-' : '+'" class="text-xl"></span>
                     </button>
-                    <div x-show="open === 2" x-collapse class="p-4 pt-0 text-gray-600">
+                    <div x-show="open === 2" x-collapse x-cloak class="p-4 pt-0 text-gray-600">
                         Sim, você pode cancelar sem problemas. Basta ir à sua seção de faturamento para cancelar o plano ou simplesmente parar de pagar sua fatura. Sem burocracia.
                     </div>
                 </div>
@@ -346,7 +375,7 @@
                         Posso contratar a máquina de LinkedIn e usar meu CRM atual?
                         <span x-text="open === 3 ? '-' : '+'" class="text-xl"></span>
                     </button>
-                    <div x-show="open === 3" x-collapse class="p-4 pt-0 text-gray-600">
+                    <div x-show="open === 3" x-collapse x-cloak class="p-4 pt-0 text-gray-600">
                         Sim, é possível. Você pode contratar nosso módulo de prospecção no LinkedIn e integrá-lo com outros CRMs. Consulte nosso suporte para verificar as condições de integração com sua ferramenta atual.
                     </div>
                 </div>
@@ -356,7 +385,7 @@
                         Tenho acesso a alguma academia de vendas?
                         <span x-text="open === 4 ? '-' : '+'" class="text-xl"></span>
                     </button>
-                    <div x-show="open === 4" x-collapse class="p-4 pt-0 text-gray-600">
+                    <div x-show="open === 4" x-collapse x-cloak class="p-4 pt-0 text-gray-600">
                         Claro! Todos os clientes têm acesso à People Academy, nossa plataforma com mais de 160 aulas sobre vendas, cobrindo metodologias como GPTC, SPIN, AIDA e muitas outras.
                     </div>
                 </div>
@@ -366,8 +395,73 @@
                         Por que devo contratar os serviços da CRM People?
                         <span x-text="open === 5 ? '-' : '+'" class="text-xl"></span>
                     </button>
-                    <div x-show="open === 5" x-collapse class="p-4 pt-0 text-gray-600">
+                    <div x-show="open === 5" x-collapse x-cloak class="p-4 pt-0 text-gray-600">
                         Ótima pergunta! Primeiro, somos uma empresa brasileira e apaixonada pelo nosso país. Segundo, amamos gente, processos e tecnologia. Terceiro, nosso suporte "chega junto" e te ajuda sem pestanejar. Essa é a nossa cultura: se você cresce, nós crescemos juntos.
+                    </div>
+                </div>
+                <!-- FAQ 6 - NOVO -->
+                <div class="border rounded-lg">
+                    <button @click="open = open === 6 ? null : 6" class="w-full text-left p-4 font-semibold flex justify-between items-center">
+                        Qual a diferença entre o WhatsApp comum, Business e a API Oficial?
+                        <span x-text="open === 6 ? '-' : '+'" class="text-xl"></span>
+                    </button>
+                    <div x-show="open === 6" x-collapse x-cloak class="p-4 pt-0 text-gray-600">
+                        <p class="mb-4">Entender a diferença é crucial para escolher a ferramenta certa. Basicamente, existem três versões, cada uma com um propósito específico:</p>
+                        
+                        <h4 class="font-bold text-lg mb-2 text-gray-800">1. WhatsApp Pessoal</h4>
+                        <p class="mb-4">É o app padrão para conversar com amigos e família. Não possui ferramentas comerciais e seu uso para negócios em larga escala viola os termos de serviço.</p>
+    
+                        <h4 class="font-bold text-lg mb-2 text-gray-800">2. WhatsApp Business (Aplicativo Gratuito)</h4>
+                        <p class="mb-4">Ideal para autônomos e pequenos negócios. Oferece recursos básicos como perfil comercial e catálogo de produtos, mas é limitado a um único usuário e não permite automação avançada ou integração com sistemas como um CRM.</p>
+    
+                        <h4 class="font-bold text-lg mb-2 text-gray-800">3. WhatsApp Business API (Oficial)</h4>
+                        <p class="mb-4">A solução profissional para médias e grandes empresas, que é a que integramos. Não é um aplicativo, mas uma interface que conecta o WhatsApp aos seus sistemas. Permite múltiplos atendentes no mesmo número, chatbots, automação, envio de notificações e integração total com seu CRM.</p>
+    
+                        <h4 class="font-bold text-lg mt-6 mb-4 text-gray-800">Tabela Comparativa:</h4>
+                        <div class="overflow-x-auto rounded-lg border border-gray-200">
+                            <table class="min-w-full bg-white text-sm">
+                                <thead class="bg-gray-50">
+                                    <tr>
+                                        <th class="py-3 px-4 border-b text-left font-semibold text-gray-700">Recurso</th>
+                                        <th class="py-3 px-4 border-b text-center font-semibold text-gray-700">Pessoal</th>
+                                        <th class="py-3 px-4 border-b text-center font-semibold text-gray-700">Business App</th>
+                                        <th class="py-3 px-4 border-b text-center font-semibold text-gray-700">Business API</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr class="hover:bg-gray-50">
+                                        <td class="py-3 px-4 border-b font-semibold">Custo</td>
+                                        <td class="py-3 px-4 border-b text-center">Gratuito</td>
+                                        <td class="py-3 px-4 border-b text-center">Gratuito</td>
+                                        <td class="py-3 px-4 border-b text-center font-bold text-indigo-600">Pago</td>
+                                    </tr>
+                                    <tr class="hover:bg-gray-50">
+                                        <td class="py-3 px-4 border-b font-semibold">Nº de Usuários</td>
+                                        <td class="py-3 px-4 border-b text-center">1</td>
+                                        <td class="py-3 px-4 border-b text-center">1</td>
+                                        <td class="py-3 px-4 border-b text-center font-bold text-indigo-600">Múltiplos</td>
+                                    </tr>
+                                     <tr class="hover:bg-gray-50">
+                                        <td class="py-3 px-4 border-b font-semibold">Automação</td>
+                                        <td class="py-3 px-4 border-b text-center">Não</td>
+                                        <td class="py-3 px-4 border-b text-center">Básica</td>
+                                        <td class="py-3 px-4 border-b text-center font-bold text-indigo-600">Avançada</td>
+                                    </tr>
+                                    <tr class="hover:bg-gray-50">
+                                        <td class="py-3 px-4 border-b font-semibold">Integração (CRM)</td>
+                                        <td class="py-3 px-4 border-b text-center">Não</td>
+                                        <td class="py-3 px-4 border-b text-center">Não</td>
+                                        <td class="py-3 px-4 border-b text-center font-bold text-indigo-600">Sim</td>
+                                    </tr>
+                                     <tr class="hover:bg-gray-50">
+                                        <td class="py-3 px-4 border-b font-semibold">Escalabilidade</td>
+                                        <td class="py-3 px-4 border-b text-center">Baixa</td>
+                                        <td class="py-3 px-4 border-b text-center">Baixa</td>
+                                        <td class="py-3 px-4 border-b text-center font-bold text-indigo-600">Alta</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
                     </div>
                 </div>
             </div>
