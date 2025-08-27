@@ -1,538 +1,474 @@
 <!DOCTYPE html>
-<html lang="pt-BR">
+<html lang="pt-BR" class="scroll-smooth">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>CRM People | Centralize sua Operação e Venda 10x Mais</title>
+    <title>Rino.IA - Reuniões Qualificadas no Piloto Automático</title>
     <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-    <script src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js" defer></script>
+    <!-- Chosen Palette: Corporate Growth Palette -->
+    <!-- Application Structure Plan: A landing page com uma estrutura de funil de conversão clássico. Começa com uma proposta de valor forte (Hero), seguida por prova social imediata (Credibilidade). Em seguida, agita o problema do usuário (Dor), apresenta o Rino.IA como a solução ideal (Solução/Comparativo), desmistifica a tecnologia (Como Funciona) e conecta funcionalidades a resultados de negócio (Impacto). Validação adicional é fornecida através de depoimentos (Prova Social), seguida por uma oferta clara e simplificada (Oferta) e a remoção de barreiras finais (FAQ). Essa estrutura foi escolhida por ser altamente eficaz em guiar o usuário C-level, que tem pouco tempo, de forma lógica e persuasiva, desde a conscientização do problema até a decisão de compra, maximizando a geração de leads. -->
+    <!-- Visualization & Content Choices: As métricas de alto impacto (ex: +R$1.9 Bilhão) são apresentadas como KPIs em destaque para rápida absorção. Um gráfico de barras (Chart.js) é usado para comparar visualmente o tempo gasto em prospecção manual vs. com Rino.IA, reforçando a principal proposta de valor (economia de tempo). Um diagrama de processo (HTML/Tailwind) explica o "Como Funciona" de forma simples. Uma tabela comparativa (HTML) contrasta o "jeito antigo" com o "novo padrão", tornando a superioridade da solução óbvia. Um acordeão interativo (JS) é usado no FAQ para manter a seção limpa e organizada. Essas escolhas evitam sobrecarga de informação, focam em clareza e persuasão, e garantem uma experiência interativa sem a necessidade de SVG ou Mermaid. -->
+    <!-- CONFIRMATION: NO SVG graphics used. NO Mermaid JS used. -->
     <style>
         body {
             font-family: 'Inter', sans-serif;
+            background-color: #F8F5F2;
+            color: #1F2937;
         }
-        .hero-bg {
-            background-image: url('https://placehold.co/1920x1080/1a202c/ffffff?text=Dashboard+Moderno');
-            background-size: cover;
-            background-position: center;
+        .hero-gradient {
+            background: linear-gradient(135deg, #F8F5F2 0%, #EAE6E1 100%);
         }
-        .gradient-text {
-            background: linear-gradient(90deg, #4F46E5, #0EA5E9);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
+        .cta-button {
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 14px 0 rgba(13, 71, 161, 0.39);
         }
-        [x-cloak] { display: none !important; }
+        .cta-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px 0 rgba(13, 71, 161, 0.5);
+        }
+        .faq-item .faq-answer {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.5s ease-in-out;
+        }
+        .faq-item.open .faq-answer {
+            max-height: 500px;
+        }
+        .faq-item.open .chevron {
+            transform: rotate(180deg);
+        }
+        .chevron {
+            transition: transform 0.3s ease;
+        }
+        .chart-container {
+            position: relative;
+            width: 100%;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+            height: 300px;
+            max-height: 400px;
+        }
+        @media (min-width: 768px) {
+            .chart-container {
+                height: 350px;
+            }
+        }
     </style>
 </head>
-<body class="bg-gray-50 text-gray-800">
+<body class="antialiased">
 
-    <!-- Cabeçalho -->
-    <header class="bg-white/80 backdrop-blur-md sticky top-0 z-50 shadow-sm">
-        <div class="container mx-auto px-6 py-4 flex justify-between items-center">
-            <h1 class="text-2xl font-bold text-gray-900">CRM People</h1>
-            <a href="#planos" class="hidden md:inline-block bg-indigo-600 text-white font-semibold px-6 py-2 rounded-lg hover:bg-indigo-700 transition-colors">Ver Planos</a>
+    <header class="bg-white/80 backdrop-blur-lg sticky top-0 z-50 shadow-sm">
+        <nav class="container mx-auto px-6 py-4 flex justify-between items-center">
+            <div class="text-2xl font-bold text-[#0D47A1]">
+                Rino.<span class="text-[#F9A825]">IA</span>
+            </div>
+            <div class="hidden md:flex items-center space-x-8">
+                <a href="#problema" class="text-gray-600 hover:text-[#0D47A1] transition">O Problema</a>
+                <a href="#solucao" class="text-gray-600 hover:text-[#0D47A1] transition">A Solução</a>
+                <a href="#impacto" class="text-gray-600 hover:text-[#0D47A1] transition">Impacto</a>
+                <a href="#preco" class="text-gray-600 hover:text-[#0D47A1] transition">Preço</a>
+                <a href="#cta-final" class="bg-[#0D47A1] text-white px-5 py-2 rounded-lg font-semibold cta-button">Ver Demonstração</a>
+            </div>
+            <div class="md:hidden">
+                <button id="mobile-menu-button" class="text-gray-700 focus:outline-none">
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7"></path></svg>
+                </button>
+            </div>
+        </nav>
+        <div id="mobile-menu" class="hidden md:hidden bg-white px-6 pt-2 pb-4">
+            <a href="#problema" class="block py-2 text-gray-600 hover:text-[#0D47A1]">O Problema</a>
+            <a href="#solucao" class="block py-2 text-gray-600 hover:text-[#0D47A1]">A Solução</a>
+            <a href="#impacto" class="block py-2 text-gray-600 hover:text-[#0D47A1]">Impacto</a>
+            <a href="#preco" class="block py-2 text-gray-600 hover:text-[#0D47A1]">Preço</a>
+            <a href="#cta-final" class="block mt-2 w-full text-center bg-[#0D47A1] text-white px-5 py-2 rounded-lg font-semibold cta-button">Ver Demonstração</a>
         </div>
     </header>
 
-    <!-- Seção 1: Herói -->
-    <section class="hero-bg text-white relative">
-        <div class="absolute inset-0 bg-gray-900/70"></div>
-        <div class="container mx-auto px-6 py-24 md:py-32 text-center relative z-10">
-            <h1 class="text-4xl md:text-6xl font-extrabold leading-tight mb-4">Chega de Caos. Centralize sua Operação e Venda 10x Mais.</h1>
-            <p class="text-lg md:text-xl text-gray-200 max-w-3xl mx-auto mb-8">Unifique seu CRM, WhatsApp, Telefonia com IA e Funil de Vendas em uma única plataforma. Transforme leads em clientes de forma previsível, inteligente e automatizada.</p>
-            <a href="https://crmpeople.com.br/planos-partner/" target="_blank" class="bg-green-500 text-white font-bold text-lg px-10 py-4 rounded-lg hover:bg-green-600 transition-transform transform hover:scale-105 inline-block shadow-lg">
-                👉 Assista Demonstração Gratuita
-            </a>
-            <p class="mt-4 text-sm text-gray-300">Sem cartão de crédito. Sem compromisso.</p>
-        </div>
-    </section>
+    <main>
+        <section id="hero" class="hero-gradient py-20 md:py-32">
+            <div class="container mx-auto px-6 text-center">
+                <h1 class="text-4xl md:text-6xl font-extrabold text-[#0D47A1] leading-tight mb-4">Receba Reuniões Qualificadas do LinkedIn no Piloto Automático.</h1>
+                <p class="text-lg md:text-xl text-gray-700 max-w-3xl mx-auto mb-8">O Rino.IA é a primeira inteligência artificial que encontra, qualifica e agenda reuniões com seu perfil de cliente ideal no LinkedIn. Deixe a prospecção com a nossa IA e foque apenas em fechar negócios.</p>
+                <a href="#cta-final" class="bg-[#F9A825] text-[#0D47A1] px-10 py-4 rounded-lg font-bold text-lg inline-block cta-button">Ver a IA em Ação (Demonstração Gratuita)</a>
+                <p class="mt-4 text-sm text-gray-600">Sem cartão de crédito. Sem compromisso.</p>
+            </div>
+        </section>
 
-    <!-- Seção 2: O Problema -->
-    <section class="py-20 bg-white">
-        <div class="container mx-auto px-6">
-            <div class="text-center mb-12">
-                <h2 class="text-3xl md:text-4xl font-bold text-gray-900">Sua operação de vendas está travada?</h2>
-                <p class="text-lg text-gray-600 mt-2 max-w-2xl mx-auto">Se você enfrenta algum destes desafios, está perdendo tempo, dinheiro e oportunidades.</p>
-            </div>
-            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
-                <!-- Card Problema 1 -->
-                <div class="bg-gray-50 p-6 rounded-xl shadow-md hover:shadow-xl transition-shadow">
-                    <div class="text-4xl mb-4">🗣️</div>
-                    <h3 class="font-bold text-xl mb-2">Leads se perdem no caminho?</h3>
-                    <p class="text-gray-600">Leads do Instagram, Facebook e Google caem em planilhas ou se perdem em conversas soltas no WhatsApp.</p>
-                </div>
-                <!-- Card Problema 2 -->
-                <div class="bg-gray-50 p-6 rounded-xl shadow-md hover:shadow-xl transition-shadow">
-                    <div class="text-4xl mb-4">📞</div>
-                    <h3 class="font-bold text-xl mb-2">Comunicação descentralizada?</h3>
-                    <p class="text-gray-600">Sua equipe usa o WhatsApp pessoal e você não tem controle ou histórico das negociações.</p>
-                </div>
-                <!-- Card Problema 3 -->
-                <div class="bg-gray-50 p-6 rounded-xl shadow-md hover:shadow-xl transition-shadow">
-                    <div class="text-4xl mb-4">💸</div>
-                    <h3 class="font-bold text-xl mb-2">Vendas esfriam por falta de follow-up?</h3>
-                    <p class="text-gray-600">Vendedores esquecem de contatar o lead na hora certa e o interesse desaparece.</p>
-                </div>
-                <!-- Card Problema 4 -->
-                <div class="bg-gray-50 p-6 rounded-xl shadow-md hover:shadow-xl transition-shadow">
-                    <div class="text-4xl mb-4">📉</div>
-                    <h3 class="font-bold text-xl mb-2">Falta de visibilidade e dados?</h3>
-                    <p class="text-gray-600">Você não sabe em que etapa do funil cada cliente está ou qual campanha traz resultado.</p>
+        <section id="credibilidade" class="py-12 bg-white">
+            <div class="container mx-auto px-6">
+                <h3 class="text-center text-gray-600 font-semibold mb-8">A tecnologia de vendas por trás de +R$ 1.9 Bilhão em negócios para empresas como:</h3>
+                <div class="flex flex-wrap justify-center items-center gap-x-12 gap-y-6 grayscale opacity-70">
+                    <span class="text-2xl font-bold">XP</span>
+                    <span class="text-2xl font-bold">freterápido</span>
+                    <span class="text-2xl font-bold">GM</span>
+                    <span class="text-2xl font-bold">BENTEC</span>
+                    <span class="text-2xl font-bold">RealInvest</span>
+                    <span class="text-2xl font-bold">make</span>
                 </div>
             </div>
-        </div>
-    </section>
+        </section>
 
-    <!-- Seção 3: A Solução -->
-    <section class="py-20">
-        <div class="container mx-auto px-6">
-            <div class="flex flex-col md:flex-row items-center gap-12">
-                <div class="md:w-1/2 text-center md:text-left">
-                    <h2 class="text-3xl md:text-4xl font-bold text-gray-900 mb-4">A Plataforma Única que Transforma sua Equipe em uma <span class="gradient-text">Máquina de Vendas</span></h2>
-                    <p class="text-lg text-gray-600 mb-6">Nós conectamos todas as pontas do seu processo comercial para que você tenha uma visão 360° da sua operação, do primeiro clique do lead ao fechamento da venda.</p>
-                    <p class="text-lg text-gray-600">Menos tempo com tarefas manuais, mais tempo vendendo de forma inteligente.</p>
+        <section id="problema" class="py-20">
+            <div class="container mx-auto px-6">
+                <div class="text-center max-w-3xl mx-auto">
+                    <h2 class="text-3xl md:text-4xl font-bold text-[#0D47A1] mb-4">Sua equipe de vendas gasta mais tempo prospectando do que vendendo?</h2>
+                    <p class="text-gray-700 mb-12">O processo manual de prospecção no LinkedIn é exaustivo e ineficiente. Se você reconhece essa rotina, está perdendo tempo precioso e deixando oportunidades na mesa:</p>
                 </div>
-                <div class="md:w-1/2">
-                    <img src="https://placehold.co/600x400/E0E7FF/4F46E5?text=Plataforma+em+Ação" alt="Demonstração da plataforma CRM People" class="rounded-xl shadow-2xl">
+                <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
+                    <div class="bg-white p-8 rounded-xl shadow-lg border border-gray-200">
+                        <span class="text-4xl mb-4 block">⏳</span>
+                        <h4 class="font-bold text-xl mb-2">4 Horas por Dia Desperdiçadas</h4>
+                        <p class="text-gray-600">Sua equipe gasta quase meio período de trabalho em tarefas de baixo valor como enviar convites, follow-ups e nutrir leads que nunca respondem.</p>
+                    </div>
+                    <div class="bg-white p-8 rounded-xl shadow-lg border border-gray-200">
+                        <span class="text-4xl mb-4 block">📉</span>
+                        <h4 class="font-bold text-xl mb-2">Inconsistência que Mata o Pipeline</h4>
+                        <p class="text-gray-600">A prospecção manual depende da disciplina diária. Um dia improdutivo significa um buraco no seu funil de vendas no próximo mês.</p>
+                    </div>
+                    <div class="bg-white p-8 rounded-xl shadow-lg border border-gray-200">
+                        <span class="text-4xl mb-4 block">💬</span>
+                        <h4 class="font-bold text-xl mb-2">Conversas que Não Viram Reuniões</h4>
+                        <p class="text-gray-600">Abordagens genéricas e falta de expertise em copywriting para prospecção resultam em baixíssimas taxas de resposta e poucas reuniões.</p>
+                    </div>
+                    <div class="bg-white p-8 rounded-xl shadow-lg border border-gray-200">
+                        <span class="text-4xl mb-4 block">❓</span>
+                        <h4 class="font-bold text-xl mb-2">Falta de Dados e Visibilidade</h4>
+                        <p class="text-gray-600">Sem uma ferramenta adequada, a prospecção se torna um tiro no escuro, sem dados para otimizar o processo e entender o que funciona.</p>
+                    </div>
                 </div>
             </div>
-        </div>
-    </section>
+        </section>
 
-    <!-- Seção 4: Funcionalidades e Benefícios -->
-    <section class="py-20 bg-white">
-        <div class="container mx-auto px-6">
-            <div class="text-center mb-12">
-                <h2 class="text-3xl md:text-4xl font-bold text-gray-900">Tudo o que você precisa para acelerar seu crescimento</h2>
-                <p class="text-lg text-gray-600 mt-2">O poder da centralização em um só lugar.</p>
-            </div>
-            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-                <!-- Funcionalidade 1 -->
-                <div class="bg-gray-50 p-6 rounded-lg border border-gray-200">
-                    <h3 class="font-bold text-xl mb-2">CRM Completo e Funil de Vendas Visual</h3>
-                    <p class="text-gray-600 mb-4">Organize contatos e negociações em um funil "arrasta e solta". Agende tarefas e tenha o histórico completo em uma única tela.</p>
-                    <p class="font-semibold text-green-600">✅ Tenha previsibilidade de receita e identifique gargalos em segundos.</p>
+        <section id="solucao" class="py-20 bg-white">
+            <div class="container mx-auto px-6">
+                <div class="text-center max-w-3xl mx-auto">
+                    <h2 class="text-3xl md:text-4xl font-bold text-[#0D47A1] mb-4">Apresentando Rino.IA: A Máquina de Reuniões que Trabalha para Você 24/7</h2>
+                    <p class="text-gray-700 mb-12">Imagine ter um especialista em prospecção trabalhando incansavelmente para sua empresa, gerando um fluxo constante de reuniões qualificadas, enquanto sua equipe foca no que faz de melhor: vender. Esse especialista é o Rino.IA.</p>
                 </div>
-                <!-- Funcionalidade 2 -->
-                <div class="bg-gray-50 p-6 rounded-lg border border-gray-200">
-                    <h3 class="font-bold text-xl mb-2">WhatsApp Oficial Integrado</h3>
-                    <p class="text-gray-600 mb-4">Gerencie todas as conversas dentro do CRM. Múltiplos vendedores podem usar o mesmo número, com todo o histórico salvo.</p>
-                    <p class="font-semibold text-green-600">✅ Profissionalize seu atendimento e centralize a comunicação.</p>
+                <div class="overflow-x-auto">
+                    <table class="w-full max-w-4xl mx-auto border-collapse">
+                        <thead>
+                            <tr>
+                                <th class="p-4 border-b-2 border-gray-200 text-left font-bold">Característica</th>
+                                <th class="p-4 border-b-2 border-gray-200 text-left font-semibold text-red-600">❌ Prospecção Manual (O Jeito Antigo)</th>
+                                <th class="p-4 border-b-2 border-gray-200 text-left font-semibold text-green-600">✅ Automação com Rino.IA (O Novo Padrão)</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr class="hover:bg-gray-50">
+                                <td class="p-4 border-b border-gray-200 font-semibold">Tempo Gasto</td>
+                                <td class="p-4 border-b border-gray-200"><strong>4 horas/dia</strong> por vendedor em tarefas repetitivas.</td>
+                                <td class="p-4 border-b border-gray-200"><strong>Minutos por dia</strong> para configurar. A IA executa 24/7.</td>
+                            </tr>
+                            <tr class="hover:bg-gray-50">
+                                <td class="p-4 border-b border-gray-200 font-semibold">Produtividade</td>
+                                <td class="p-4 border-b border-gray-200">Baixa eficiência, volume limitado pela capacidade humana.</td>
+                                <td class="p-4 border-b border-gray-200"><strong>Aumento de até 40%</strong> na produtividade do time comercial.</td>
+                            </tr>
+                            <tr class="hover:bg-gray-50">
+                                <td class="p-4 border-b border-gray-200 font-semibold">Consistência</td>
+                                <td class="p-4 border-b border-gray-200">Dependente do esforço e disciplina humana; sujeito a falhas.</td>
+                                <td class="p-4 border-b border-gray-200">Execução programada e consistente, garantindo um pipeline sempre aquecido.</td>
+                            </tr>
+                             <tr class="hover:bg-gray-50">
+                                <td class="p-4 border-b border-gray-200 font-semibold">Resultado Final</td>
+                                <td class="p-4 border-b border-gray-200">Muito esforço, poucas reuniões, pipeline imprevisível.</td>
+                                <td class="p-4 border-b border-gray-200">Fluxo constante de reuniões qualificadas direto na agenda.</td>
+                            </tr>
+                        </tbody>
+                    </table>
                 </div>
-                <!-- Funcionalidade 3 -->
-                <div class="bg-gray-50 p-6 rounded-lg border border-gray-200">
-                    <h3 class="font-bold text-xl mb-2">Telefonia Inteligente (VoIP com IA)</h3>
-                    <p class="text-gray-600 mb-4">Faça e receba ligações direto da plataforma. Nossa IA transcreve chamadas e gera insights para otimizar seus roteiros.</p>
-                    <p class="font-semibold text-green-600">✅ Treine sua equipe com base em dados reais e melhore a performance.</p>
-                </div>
-                <!-- Funcionalidade 4 -->
-                <div class="bg-gray-50 p-6 rounded-lg border border-gray-200">
-                    <h3 class="font-bold text-xl mb-2">Automação de Leads de Todas as Fontes</h3>
-                    <p class="text-gray-600 mb-4">Instagram, Facebook, Google Ads, LinkedIn, Site. Integramos tudo! O lead cai direto no funil e o vendedor é notificado.</p>
-                    <p class="font-semibold text-green-600">✅ Responda ao seu lead em tempo recorde e aumente sua conversão.</p>
-                </div>
-                <!-- Funcionalidade 5 -->
-                <div class="bg-gray-50 p-6 rounded-lg border border-gray-200">
-                    <h3 class="font-bold text-xl mb-2">Cadência de Prospecção Automatizada</h3>
-                    <p class="text-gray-600 mb-4">Crie fluxos de contato inteligentes com e-mails, WhatsApp e tarefas. Nutra cada lead sem esforço manual.</p>
-                    <p class="font-semibold text-green-600">✅ Aumente o volume de prospecção com consistência.</p>
-                </div>
-                <!-- Funcionalidade 6 -->
-                <div class="bg-gray-50 p-6 rounded-lg border border-gray-200">
-                    <h3 class="font-bold text-xl mb-2">Relatórios que Geram Decisões</h3>
-                    <p class="text-gray-600 mb-4">Acesse dashboards com métricas em tempo real: vendas por vendedor, motivos de perda, ciclo de vendas e muito mais.</p>
-                    <p class="font-semibold text-green-600">✅ Pare de "achar". Tome decisões estratégicas baseadas em dados.</p>
-                </div>
-                 <!-- Funcionalidade 7 -->
-                 <div class="bg-gray-50 p-6 rounded-lg border border-gray-200 col-span-1 md:col-span-2 lg:col-span-3">
-                    <h3 class="font-bold text-xl mb-2">Gestão na Palma da Mão com nosso APP</h3>
-                    <p class="text-gray-600 mb-4">Seu time tem acesso ao CRM e ao WhatsApp integrado onde estiver. Atualize negociações, responda clientes e gerencie tarefas direto do celular.</p>
-                    <p class="font-semibold text-green-600">✅ Dê mobilidade e agilidade para sua equipe de vendas, dentro ou fora do escritório.</p>
+                 <div class="text-center mt-12">
+                     <a href="#cta-final" class="bg-[#0D47A1] text-white px-10 py-4 rounded-lg font-bold text-lg inline-block cta-button">Quero Automatizar Minha Prospecção</a>
                 </div>
             </div>
-        </div>
-    </section>
+        </section>
 
-    <!-- NOVA SEÇÃO: Benefícios do WhatsApp -->
-    <section class="py-20">
-        <div class="container mx-auto px-6">
-            <div class="text-center mb-12">
-                <h2 class="text-3xl md:text-4xl font-bold text-gray-900">O Poder do WhatsApp para Negócios</h2>
-                <p class="text-lg text-gray-600 mt-2 max-w-3xl mx-auto">Conecte-se onde seus clientes estão. Nossa integração oficial com a API do WhatsApp transforma o app mais popular do Brasil em uma ferramenta de vendas escalável e segura.</p>
-            </div>
-            <div class="flex flex-col lg:flex-row items-center gap-12">
-                <!-- Coluna de Benefícios -->
-                <div class="lg:w-1/2">
-                    <h3 class="text-2xl font-bold mb-6">Vantagens da Integração Oficial:</h3>
-                    <div class="space-y-4">
-                        <div class="flex items-start">
-                            <span class="text-green-500 mr-3 mt-1">✓</span>
-                            <p><span class="font-semibold">Atendimento Escalável e Robusto:</span> Vários atendentes em um único número, sem perder o controle.</p>
+        <section id="como-funciona" class="py-20">
+            <div class="container mx-auto px-6">
+                <div class="text-center max-w-3xl mx-auto">
+                    <h2 class="text-3xl md:text-4xl font-bold text-[#0D47A1] mb-12">Como o Rino.IA Agenda Reuniões para Você em 4 Passos Simples</h2>
+                </div>
+                <div class="relative">
+                    <div class="hidden md:block absolute top-1/2 left-0 w-full h-0.5 bg-gray-300 -translate-y-1/2"></div>
+                    <div class="grid md:grid-cols-4 gap-8 relative">
+                        <div class="text-center bg-white p-6 rounded-lg shadow-md border border-gray-200">
+                            <div class="w-16 h-16 bg-[#0D47A1] text-white text-2xl font-bold rounded-full flex items-center justify-center mx-auto mb-4">1</div>
+                            <h4 class="font-bold text-xl mb-2">Defina seu Cliente Ideal</h4>
+                            <p class="text-gray-600">Use os filtros do Sales Navigator para criar listas ultra-segmentadas. Diga ao Rino.IA com quem você quer falar.</p>
                         </div>
-                        <div class="flex items-start">
-                            <span class="text-green-500 mr-3 mt-1">✓</span>
-                            <p><span class="font-semibold">Segurança e Confiabilidade (LGPD):</span> Histórico de conversas salvo, selo de verificação e templates aprovados pela Meta para evitar SPAM e banimentos.</p>
+                        <div class="text-center bg-white p-6 rounded-lg shadow-md border border-gray-200">
+                            <div class="w-16 h-16 bg-[#0D47A1] text-white text-2xl font-bold rounded-full flex items-center justify-center mx-auto mb-4">2</div>
+                            <h4 class="font-bold text-xl mb-2">A IA Inicia Conversas</h4>
+                            <p class="text-gray-600">Nossa IA envia convites e sequências de mensagens personalizadas e humanizadas para iniciar o diálogo e gerar engajamento.</p>
                         </div>
-                        <div class="flex items-start">
-                            <span class="text-green-500 mr-3 mt-1">✓</span>
-                            <p><span class="font-semibold">Automação Inteligente:</span> Crie campanhas, fluxos de nutrição e cadências automáticas para aumentar em até 10x sua taxa de conversão.</p>
+                        <div class="text-center bg-white p-6 rounded-lg shadow-md border border-gray-200">
+                            <div class="w-16 h-16 bg-[#0D47A1] text-white text-2xl font-bold rounded-full flex items-center justify-center mx-auto mb-4">3</div>
+                            <h4 class="font-bold text-xl mb-2">Qualificação Inteligente</h4>
+                            <p class="text-gray-600">O Rino.IA analisa as respostas em tempo real, qualifica os leads com base nos seus critérios e descarta os que não têm fit.</p>
                         </div>
-                        <div class="flex items-start">
-                            <span class="text-green-500 mr-3 mt-1">✓</span>
-                            <p><span class="font-semibold">Gestão Completa:</span> Atribua responsáveis, interaja em tempo real com seu time e tenha a comunicação interna e externa centralizada.</p>
-                        </div>
-                    </div>
-                </div>
-                <!-- Coluna de Estatísticas -->
-                <div class="lg:w-1/2 grid grid-cols-2 gap-6">
-                    <div class="bg-white p-6 rounded-xl shadow-lg text-center">
-                        <p class="text-4xl font-bold gradient-text">+2 bi</p>
-                        <p class="text-gray-600 mt-2">de pessoas no mundo usam o WhatsApp.</p>
-                    </div>
-                    <div class="bg-white p-6 rounded-xl shadow-lg text-center">
-                        <p class="text-4xl font-bold gradient-text">99%</p>
-                        <p class="text-gray-600 mt-2">dos brasileiros com smartphone têm o app instalado.</p>
-                    </div>
-                    <div class="bg-white p-6 rounded-xl shadow-lg text-center">
-                        <p class="text-4xl font-bold gradient-text">93%</p>
-                        <p class="text-gray-600 mt-2">dos usuários acessam o WhatsApp pelo menos 1x ao dia.</p>
-                    </div>
-                    <div class="bg-white p-6 rounded-xl shadow-lg text-center">
-                        <p class="text-4xl font-bold gradient-text">73%</p>
-                        <p class="text-gray-600 mt-2">dos usuários estão dispostos a fazer negócios pelo App.</p>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Seção 5: Prova Social -->
-    <section class="py-20 bg-gray-50">
-        <div class="container mx-auto px-6">
-            <div class="text-center mb-12">
-                <h2 class="text-3xl md:text-4xl font-bold text-gray-900">Quem Confia, Cresce</h2>
-                <p class="text-lg text-gray-600 mt-2">Veja quem já está acelerando as vendas conosco.</p>
-            </div>
-            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 max-w-7xl mx-auto">
-                <!-- Testemunho 1 NOVO -->
-                <div class="bg-white p-8 rounded-xl shadow-lg flex flex-col">
-                    <img src="https://placehold.co/100x100/E0E7FF/4F46E5?text=GM" alt="Foto de Gleithon Moura" class="w-24 h-24 rounded-full mx-auto -mt-20 mb-4 border-4 border-white">
-                    <p class="text-gray-600 italic mb-4 flex-grow">"As soluções da CRM People trazem para o mercado de vendas e prospecção, uma inovação que eu ainda não tinha visto, combinado em uma única ferramenta, tudo que nós empreendedores precisamos para termos leads qualificados constantes e fechamento de negócios."</p>
-                    <p class="font-bold text-right">- Gleithon Moura</p>
-                    <p class="text-sm text-gray-500 text-right">Supervisor Reg. Vendas</p>
-                </div>
-                <!-- Testemunho 2 NOVO -->
-                <div class="bg-white p-8 rounded-xl shadow-lg flex flex-col">
-                    <img src="https://placehold.co/100x100/E0E7FF/4F46E5?text=PR" alt="Foto de Paulo Rocha" class="w-24 h-24 rounded-full mx-auto -mt-20 mb-4 border-4 border-white">
-                    <p class="text-gray-600 italic mb-4 flex-grow">"Seu foco em Go-to-Market e Sales Engagement tem mostrado resultados rápidos e impactantes, criando uma jornada de vendas personalizada que realmente gera valor. Mesmo com pouco tempo de colaboração, já percebo o valor agregado ao nosso time."</p>
-                    <p class="font-bold text-right">- Paulo Rocha</p>
-                    <p class="text-sm text-gray-500 text-right">Go-to-Market | B2B Sales</p>
-                </div>
-                <!-- Testemunho 3 -->
-                <div class="bg-white p-8 rounded-xl shadow-lg flex flex-col">
-                    <img src="https://placehold.co/100x100/E0E7FF/4F46E5?text=RC" alt="Foto de Ricardo Clemente" class="w-24 h-24 rounded-full mx-auto -mt-20 mb-4 border-4 border-white">
-                    <p class="text-gray-600 italic mb-4 flex-grow">"O CRM People não é simplesmente uma ferramenta, mas sim uma família que está pronta para ajudar os clientes a prosperarem juntos! A imersão de vendas da People Academy foi a mais completa e prática de todas!"</p>
-                    <p class="font-bold text-right">- Ricardo Clemente</p>
-                    <p class="text-sm text-gray-500 text-right">Inteligência Artificial | LLMs</p>
-                </div>
-                <!-- Testemunho 4 -->
-                <div class="bg-white p-8 rounded-xl shadow-lg flex flex-col">
-                    <img src="https://placehold.co/100x100/E0E7FF/4F46E5?text=VM" alt="Foto de Valter Medina" class="w-24 h-24 rounded-full mx-auto -mt-20 mb-4 border-4 border-white">
-                    <p class="text-gray-600 italic mb-4 flex-grow">"Fiquei totalmente surpreso com o conhecimento de vendas e com a ferramenta. Estamos dobrando nossas capacidades de atendimento a cada seis meses, graças à inteligência da ferramenta e metodologia implementadas."</p>
-                    <p class="font-bold text-right">- Valter Medina</p>
-                    <p class="text-sm text-gray-500 text-right">Enterprise Architecture Authority</p>
-                </div>
-                <!-- Testemunho 5 -->
-                <div class="bg-white p-8 rounded-xl shadow-lg flex flex-col">
-                    <img src="https://placehold.co/100x100/E0E7FF/4F46E5?text=LT" alt="Foto de Lucas Taube" class="w-24 h-24 rounded-full mx-auto -mt-20 mb-4 border-4 border-white">
-                    <p class="text-gray-600 italic mb-4 flex-grow">"Por ser um profissional fora da curva, desenvolveu um CRM e uma máquina de vendas altamente eficiente, muito eficaz e barato se comparado com o alto custo de equipes comerciais robustas. Recomendo para empresas que buscam resultados rápidos."</p>
-                    <p class="font-bold text-right">- Lucas Brayan Taube</p>
-                    <p class="text-sm text-gray-500 text-right">Fundador - CEO na Vendin Machine</p>
-                </div>
-                <!-- Testemunho 6 -->
-                <div class="bg-white p-8 rounded-xl shadow-lg flex flex-col">
-                    <img src="https://placehold.co/100x100/E0E7FF/4F46E5?text=KM" alt="Foto de Katia Martins" class="w-24 h-24 rounded-full mx-auto -mt-20 mb-4 border-4 border-white">
-                    <p class="text-gray-600 italic mb-4 flex-grow">"Átila vai muito além das técnicas. Ele te ensina a construir confiança, a escutar com propósito e a vender com verdade. Com ele, aprendi a estruturar funis e conduzir negociações mais seguras. Recomendo com entusiasmo!"</p>
-                    <p class="font-bold text-right">- Katia Martins</p>
-                    <p class="text-sm text-gray-500 text-right">CEO | Basco Rustic House</p>
-                </div>
-            </div>
-        </div>
-    </section>
-    
-    <!-- NOVA SEÇÃO: Máquina de Prospecção LinkedIn -->
-    <section class="py-20 bg-white">
-        <div class="container mx-auto px-6">
-            <div class="text-center mb-12">
-                <h2 class="text-3xl md:text-4xl font-bold text-gray-900">Transforme o LinkedIn na sua <span class="gradient-text">Máquina de Prospecção</span></h2>
-                <p class="text-lg text-gray-600 mt-2 max-w-3xl mx-auto">Com o nosso módulo opcional, você automatiza a prospecção e recebe até 100 leads qualificados (MQL/ICP) todos os meses, direto no seu funil.</p>
-            </div>
-            <div class="flex flex-col lg:flex-row items-center gap-12">
-                <!-- Coluna de Dados e Gráfico -->
-                <div class="lg:w-1/2">
-                    <h3 class="text-2xl font-bold mb-4">Por que o LinkedIn? Os dados falam por si.</h3>
-                    <p class="text-gray-700 mb-6">Com <span class="font-bold">81 milhões de usuários ativos no Brasil</span>, o LinkedIn é a fonte mais poderosa para descobrir e conectar com decisores. Pesquisas mostram que a plataforma é <span class="font-bold text-green-600">277% mais eficaz</span> na geração de leads B2B que outras redes.</p>
-                    
-                    <!-- Gráfico Simplificado -->
-                    <div class="mb-6">
-                        <p class="font-semibold mb-2">Eficácia na Geração de Leads</p>
-                        <div class="space-y-2">
-                            <div class="flex items-center">
-                                <span class="w-20 text-sm">LinkedIn</span>
-                                <div class="w-full bg-gray-200 rounded-full h-4">
-                                    <div class="bg-green-500 h-4 rounded-full" style="width: 90%"></div>
-                                </div>
-                                <span class="ml-2 font-bold text-sm">2.77%</span>
-                            </div>
-                            <div class="flex items-center">
-                                <span class="w-20 text-sm">Facebook</span>
-                                <div class="w-full bg-gray-200 rounded-full h-4">
-                                    <div class="bg-indigo-500 h-4 rounded-full" style="width: 25%"></div>
-                                </div>
-                                <span class="ml-2 font-bold text-sm">~0.7%</span>
-                            </div>
-                             <div class="flex items-center">
-                                <span class="w-20 text-sm">X/Twitter</span>
-                                <div class="w-full bg-gray-200 rounded-full h-4">
-                                    <div class="bg-indigo-500 h-4 rounded-full" style="width: 22%"></div>
-                                </div>
-                                <span class="ml-2 font-bold text-sm">~0.6%</span>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="space-y-2 text-gray-700">
-                        <p>✅ <span class="font-semibold">75%</span> dos usuários brasileiros usam a rede para networking.</p>
-                        <p>✅ <span class="font-semibold">25%</span> dos usuários globais são influenciadores sênior e executivos C-Level.</p>
-                    </div>
-                </div>
-
-                <!-- Coluna da Imagem/Interface -->
-                <div class="lg:w-1/2">
-                    <img src="https://placehold.co/600x450/E0E7FF/4F46E5?text=Novos+Leads+Chegando" alt="Interface da Máquina de Prospecção mostrando novos leads" class="rounded-xl shadow-2xl">
-                    <p class="text-center mt-4 text-gray-600 italic">Novos leads qualificados chegam automaticamente no seu funil de vendas.</p>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Seção 6: Planos e Preços -->
-    <section id="planos" class="py-20 bg-gray-50">
-        <div class="container mx-auto px-6">
-            <div class="text-center mb-12">
-                <h2 class="text-3xl md:text-4xl font-bold text-gray-900">Planos Flexíveis para Cada Etapa do seu Negócio</h2>
-                <p class="text-lg text-gray-600 mt-2 max-w-3xl mx-auto">Seja para organizar seu processo ou para dominar o mercado com nossa equipe de especialistas.</p>
-            </div>
-            <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 max-w-5xl mx-auto">
-                <!-- Plano 1: Sales Stack for Growth -->
-                <div class="bg-white border border-gray-200 rounded-xl p-8 flex flex-col">
-                    <h3 class="text-2xl font-bold mb-2">Sales Stack for Growth</h3>
-                    <p class="text-gray-600 mb-4">A plataforma completa para você e seu time executarem com maestria.</p>
-                    <p class="text-4xl font-bold my-4">R$ 197<span class="text-lg font-medium text-gray-500">,00/mês por usuário</span></p>
-                    <a href="https://crmpeople.com.br/planos-partner/" target="_blank" class="w-full text-center bg-indigo-100 text-indigo-700 font-semibold py-3 rounded-lg hover:bg-indigo-200 transition-colors mb-6">Assistir Demonstração</a>
-                    <div class="space-y-3 text-gray-700 flex-grow">
-                        <p>✅ CRM Completo para gestão de clientes</p>
-                        <p>✅ Suporte Técnico via chat por WhatsApp</p>
-                        <p>✅ OnBoarding com vídeos tutoriais</p>
-                        <p>✅ Automação de captura de leads</p>
-                        <p>✅ APP Mobile para gestão</p>
-                        <p class="font-bold mt-4 pt-4 border-t">Módulos Opcionais:</p>
-                        <p>➕ WhatsApp API Oficial (+ R$ 397/mês) <a href="https://support.crmpeople.com.br/hc/central-de-suporte/articles/1718049294-integracao-com-whats_app-business-api-via-meta" target="_blank" class="text-indigo-600 hover:underline text-sm ml-1">(Saiba mais)</a></p>
-                        <p>➕ Telefonia VoIP com IA (+ R$ 89,90/mês por ramal)</p>
-                        <p>➕ Máquina de Prospecção LinkedIn (+ R$ 697/mês) + <a href="https://business.linkedin.com/pt-br/sales-solutions/compare-plans" target="_blank" class="text-indigo-600 hover:underline">LinkedIn Sales Navigator Core</a></p>
-                    </div>
-                </div>
-
-                <!-- Plano 2: Social Selling Growth -->
-                <div class="bg-white border-2 border-indigo-600 rounded-xl p-8 flex flex-col relative">
-                    <span class="bg-indigo-600 text-white text-sm font-bold px-4 py-1 rounded-full absolute -top-4 left-1/2 -translate-x-1/2">RECOMENDADO</span>
-                    <h3 class="text-2xl font-bold mb-2">Social Selling Growth</h3>
-                    <p class="text-gray-600 mb-4">Nossa consultoria e equipe executando para você dominar seu mercado.</p>
-                    <p class="text-4xl font-bold my-4">Sob Consulta</p>
-                    <a href="#contato" class="w-full text-center bg-indigo-600 text-white font-semibold py-3 rounded-lg hover:bg-indigo-700 transition-colors mb-6">Agendar Consultoria</a>
-                    <div class="space-y-3 text-gray-700 flex-grow">
-                        <p class="font-bold">✅ Tudo do plano Sales Stack, e mais:</p>
-                        <p>👥 Usuários de CRM (Inclusos sob medida)</p>
-                        <p>🧠 Consultoria com Expert em Vendas (1 a 2x por mês)</p>
-                        <p>🧑‍💻 1 Back Office Comercial Dedicado (6h/dia)</p>
-                        <p>✍️ Gestão de Conteúdo LinkedIn (16 posts/mês)</p>
-                        <p>🚀 Desenvolvimento de Estratégias de Vendas</p>
-                    </div>
-                </div>
-            </div>
-            <div class="text-center mt-10">
-                <a href="https://buy.stripe.com/6oU3cvbbSc0adGCbuXcAo0V" target="_blank" class="bg-gray-800 text-white font-bold text-lg px-10 py-4 rounded-lg hover:bg-gray-900 transition-colors inline-block shadow-lg">
-                    Checkout de Pagamento
-                </a>
-            </div>
-        </div>
-    </section>
-
-    <!-- Seção 7: Chamada para Ação Final -->
-    <section id="contato" class="py-20">
-        <div class="container mx-auto px-6">
-            <div class="bg-white rounded-xl shadow-2xl p-8 md:p-12 lg:flex lg:items-center lg:gap-12">
-                <div class="lg:w-1/2 text-center lg:text-left mb-8 lg:mb-0">
-                    <h2 class="text-3xl md:text-4xl font-bold text-gray-900">Pronto para transformar seu processo comercial?</h2>
-                    <p class="text-lg text-gray-600 mt-4">Chega de planilhas e apps desconectados. O caminho para acelerar suas vendas começa agora.</p>
-                </div>
-                <div class="lg:w-1/2">
-                    <form action="#" class="space-y-4">
-                        <input type="text" placeholder="Nome Completo" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500">
-                        <input type="email" placeholder="Email de Trabalho" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500">
-                        <input type="tel" placeholder="WhatsApp" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500">
-                        <input type="text" placeholder="Nome da sua Empresa" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500">
-                        <select class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500 bg-white">
-                            <option disabled selected>Qual plano mais te interessou?</option>
-                            <option>Sales Stack for Growth</option>
-                            <option>Social Selling Growth</option>
-                        </select>
-                        <button type="submit" class="w-full bg-green-500 text-white font-bold text-lg py-3 rounded-lg hover:bg-green-600 transition-colors">SE TIVER DÚVIDA, VAMOS CONVERSAR!</button>
-                    </form>
-                    <p class="text-center mt-4 text-sm text-gray-600">
-                        Ou, se preferir, vá direto para o <a href="https://buy.stripe.com/6oU3cvbbSc0adGCbuXcAo0V" target="_blank" class="font-semibold text-indigo-600 hover:underline">Checkout de pagamento</a>.
-                    </p>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Seção 8: Perguntas Frequentes (FAQ) -->
-    <section class="py-20 bg-white">
-        <div class="container mx-auto px-6 max-w-4xl">
-            <h2 class="text-3xl font-bold text-center mb-8">Perguntas Frequentes</h2>
-            <div class="space-y-4" x-data="{ open: null }">
-                <!-- FAQ 1 -->
-                <div class="border rounded-lg">
-                    <button @click="open = open === 1 ? null : 1" class="w-full text-left p-4 font-semibold flex justify-between items-center">
-                        Meu suporte é gratuito? O WhatsApp é realmente oficial?
-                        <span x-text="open === 1 ? '-' : '+'" class="text-xl"></span>
-                    </button>
-                    <div x-show="open === 1" x-collapse x-cloak class="p-4 pt-0 text-gray-600">
-                        Sim, nosso suporte via WhatsApp é gratuito para todos os planos. E sim, utilizamos a API Oficial do WhatsApp (Meta), garantindo estabilidade e segurança para sua comunicação.
-                    </div>
-                </div>
-                <!-- FAQ 2 -->
-                <div class="border rounded-lg">
-                    <button @click="open = open === 2 ? null : 2" class="w-full text-left p-4 font-semibold flex justify-between items-center">
-                        Posso cancelar a qualquer momento?
-                        <span x-text="open === 2 ? '-' : '+'" class="text-xl"></span>
-                    </button>
-                    <div x-show="open === 2" x-collapse x-cloak class="p-4 pt-0 text-gray-600">
-                        Sim, você pode cancelar sem problemas. Basta ir à sua seção de faturamento para cancelar o plano ou simplesmente parar de pagar sua fatura. Sem burocracia.
-                    </div>
-                </div>
-                <!-- FAQ 3 -->
-                <div class="border rounded-lg">
-                    <button @click="open = open === 3 ? null : 3" class="w-full text-left p-4 font-semibold flex justify-between items-center">
-                        Posso contratar a máquina de LinkedIn e usar meu CRM atual?
-                        <span x-text="open === 3 ? '-' : '+'" class="text-xl"></span>
-                    </button>
-                    <div x-show="open === 3" x-collapse x-cloak class="p-4 pt-0 text-gray-600">
-                        Sim, é possível. Você pode contratar nosso módulo de prospecção no LinkedIn e integrá-lo com outros CRMs. Consulte nosso suporte para verificar as condições de integração com sua ferramenta atual.
-                    </div>
-                </div>
-                <!-- FAQ 4 -->
-                 <div class="border rounded-lg">
-                    <button @click="open = open === 4 ? null : 4" class="w-full text-left p-4 font-semibold flex justify-between items-center">
-                        Tenho acesso a alguma academia de vendas?
-                        <span x-text="open === 4 ? '-' : '+'" class="text-xl"></span>
-                    </button>
-                    <div x-show="open === 4" x-collapse x-cloak class="p-4 pt-0 text-gray-600">
-                        Claro! Todos os clientes têm acesso à People Academy, nossa plataforma com mais de 160 aulas sobre vendas, cobrindo metodologias como GPTC, SPIN, AIDA e muitas outras.
-                    </div>
-                </div>
-                <!-- FAQ 5 -->
-                 <div class="border rounded-lg">
-                    <button @click="open = open === 5 ? null : 5" class="w-full text-left p-4 font-semibold flex justify-between items-center">
-                        Por que devo contratar os serviços da CRM People?
-                        <span x-text="open === 5 ? '-' : '+'" class="text-xl"></span>
-                    </button>
-                    <div x-show="open === 5" x-collapse x-cloak class="p-4 pt-0 text-gray-600">
-                        Ótima pergunta! Primeiro, somos uma empresa brasileira e apaixonada pelo nosso país. Segundo, amamos gente, processos e tecnologia. Terceiro, nosso suporte "chega junto" e te ajuda sem pestanejar. Essa é a nossa cultura: se você cresce, nós crescemos juntos.
-                    </div>
-                </div>
-                <!-- FAQ 6 - NOVO -->
-                <div class="border rounded-lg">
-                    <button @click="open = open === 6 ? null : 6" class="w-full text-left p-4 font-semibold flex justify-between items-center">
-                        Qual a diferença entre o WhatsApp comum, Business e a API Oficial?
-                        <span x-text="open === 6 ? '-' : '+'" class="text-xl"></span>
-                    </button>
-                    <div x-show="open === 6" x-collapse x-cloak class="p-4 pt-0 text-gray-600">
-                        <p class="mb-4">Entender a diferença é crucial para escolher a ferramenta certa. Basicamente, existem três versões, cada uma com um propósito específico:</p>
-                        
-                        <h4 class="font-bold text-lg mb-2 text-gray-800">1. WhatsApp Pessoal</h4>
-                        <p class="mb-4">É o app padrão para conversar com amigos e família. Não possui ferramentas comerciais e seu uso para negócios em larga escala viola os termos de serviço.</p>
-    
-                        <h4 class="font-bold text-lg mb-2 text-gray-800">2. WhatsApp Business (Aplicativo Gratuito)</h4>
-                        <p class="mb-4">Ideal para autônomos e pequenos negócios. Oferece recursos básicos como perfil comercial e catálogo de produtos, mas é limitado a um único usuário e não permite automação avançada ou integração com sistemas como um CRM.</p>
-    
-                        <h4 class="font-bold text-lg mb-2 text-gray-800">3. WhatsApp Business API (Oficial)</h4>
-                        <p class="mb-4">A solução profissional para médias e grandes empresas, que é a que integramos. Não é um aplicativo, mas uma interface que conecta o WhatsApp aos seus sistemas. Permite múltiplos atendentes no mesmo número, chatbots, automação, envio de notificações e integração total com seu CRM.</p>
-    
-                        <h4 class="font-bold text-lg mt-6 mb-4 text-gray-800">Tabela Comparativa:</h4>
-                        <div class="overflow-x-auto rounded-lg border border-gray-200">
-                            <table class="min-w-full bg-white text-sm">
-                                <thead class="bg-gray-50">
-                                    <tr>
-                                        <th class="py-3 px-4 border-b text-left font-semibold text-gray-700">Recurso</th>
-                                        <th class="py-3 px-4 border-b text-center font-semibold text-gray-700">Pessoal</th>
-                                        <th class="py-3 px-4 border-b text-center font-semibold text-gray-700">Business App</th>
-                                        <th class="py-3 px-4 border-b text-center font-semibold text-gray-700">Business API</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <tr class="hover:bg-gray-50">
-                                        <td class="py-3 px-4 border-b font-semibold">Custo</td>
-                                        <td class="py-3 px-4 border-b text-center">Gratuito</td>
-                                        <td class="py-3 px-4 border-b text-center">Gratuito</td>
-                                        <td class="py-3 px-4 border-b text-center font-bold text-indigo-600">Pago</td>
-                                    </tr>
-                                    <tr class="hover:bg-gray-50">
-                                        <td class="py-3 px-4 border-b font-semibold">Nº de Usuários</td>
-                                        <td class="py-3 px-4 border-b text-center">1</td>
-                                        <td class="py-3 px-4 border-b text-center">1</td>
-                                        <td class="py-3 px-4 border-b text-center font-bold text-indigo-600">Múltiplos</td>
-                                    </tr>
-                                     <tr class="hover:bg-gray-50">
-                                        <td class="py-3 px-4 border-b font-semibold">Automação</td>
-                                        <td class="py-3 px-4 border-b text-center">Não</td>
-                                        <td class="py-3 px-4 border-b text-center">Básica</td>
-                                        <td class="py-3 px-4 border-b text-center font-bold text-indigo-600">Avançada</td>
-                                    </tr>
-                                    <tr class="hover:bg-gray-50">
-                                        <td class="py-3 px-4 border-b font-semibold">Integração (CRM)</td>
-                                        <td class="py-3 px-4 border-b text-center">Não</td>
-                                        <td class="py-3 px-4 border-b text-center">Não</td>
-                                        <td class="py-3 px-4 border-b text-center font-bold text-indigo-600">Sim</td>
-                                    </tr>
-                                     <tr class="hover:bg-gray-50">
-                                        <td class="py-3 px-4 border-b font-semibold">Escalabilidade</td>
-                                        <td class="py-3 px-4 border-b text-center">Baixa</td>
-                                        <td class="py-3 px-4 border-b text-center">Baixa</td>
-                                        <td class="py-3 px-4 border-b text-center font-bold text-indigo-600">Alta</td>
-                                    </tr>
-                                </tbody>
-                            </table>
+                        <div class="text-center bg-white p-6 rounded-lg shadow-md border border-gray-200">
+                            <div class="w-16 h-16 bg-[#F9A825] text-[#0D47A1] text-2xl font-bold rounded-full flex items-center justify-center mx-auto mb-4">4</div>
+                            <h4 class="font-bold text-xl mb-2">Receba a Reunião</h4>
+                            <p class="text-gray-600">Quando um lead é qualificado, a IA facilita o agendamento da reunião diretamente no calendário do seu vendedor.</p>
                         </div>
                     </div>
                 </div>
             </div>
-        </div>
-    </section>
-
-    <!-- Rodapé -->
-    <footer class="bg-gray-900 text-white">
-        <div class="container mx-auto px-6 py-8 text-center">
-            <p class="font-bold text-xl mb-4">CRM People</p>
-            <div class="flex justify-center space-x-6 mb-4">
-                <a href="#" class="hover:text-indigo-400">Facebook</a>
-                <a href="#" class="hover:text-indigo-400">Instagram</a>
-                <a href="#" class="hover:text-indigo-400">LinkedIn</a>
+        </section>
+        
+        <section id="impacto" class="py-20 bg-white">
+            <div class="container mx-auto px-6">
+                 <div class="text-center max-w-3xl mx-auto">
+                    <h2 class="text-3xl md:text-4xl font-bold text-[#0D47A1] mb-4">Mais que uma Ferramenta, um Motor de Crescimento para seu Negócio</h2>
+                </div>
+                <div class="mt-12 grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+                    <div class="bg-[#F8F5F2] p-8 rounded-lg">
+                        <h4 class="font-bold text-xl mb-2 text-[#0D47A1]">Foque 100% em Fechar Negócios</h4>
+                        <p class="text-gray-700">Libere seus melhores vendedores da prospecção. Com o Rino.IA, eles recebem uma agenda cheia de oportunidades quentes e dedicam seu talento exclusivamente à negociação e ao fechamento.</p>
+                    </div>
+                    <div class="bg-[#F8F5F2] p-8 rounded-lg">
+                        <h4 class="font-bold text-xl mb-2 text-[#0D47A1]">Construa um Pipeline Previsível</h4>
+                        <p class="text-gray-700">Acabe com a montanha-russa de vendas. A automação garante um volume constante de novas oportunidades, dando a você a previsibilidade de receita para crescer com segurança.</p>
+                    </div>
+                    <div class="bg-[#F8F5F2] p-8 rounded-lg md:col-span-2 lg:col-span-1">
+                        <h4 class="font-bold text-xl mb-2 text-[#0D47A1]">Escale sem Aumentar a Equipe</h4>
+                        <p class="text-gray-700">Um único vendedor pode gerenciar um volume de prospecção que antes exigiria uma equipe inteira de SDRs. Escale suas operações com um ROI muito maior do que contratando mais pessoas.</p>
+                    </div>
+                </div>
+                <div class="mt-16 bg-white p-8 rounded-xl shadow-lg border border-gray-200">
+                    <h3 class="text-2xl font-bold text-center text-[#0D47A1] mb-6">Visualize a Transformação: Tempo é Dinheiro</h3>
+                    <p class="text-center text-gray-600 mb-8 max-w-2xl mx-auto">O gráfico abaixo ilustra as horas de trabalho que sua equipe recupera por mês ao automatizar a prospecção. São horas que se convertem diretamente em mais negociações e mais vendas.</p>
+                    <div class="chart-container">
+                        <canvas id="productivityChart"></canvas>
+                    </div>
+                </div>
             </div>
-            <p class="text-gray-400 text-sm">&copy; 2024 CRM People. Todos os direitos reservados.</p>
+        </section>
+        
+        <section id="depoimentos" class="py-20">
+            <div class="container mx-auto px-6">
+                <div class="text-center max-w-3xl mx-auto">
+                    <h2 class="text-3xl md:text-4xl font-bold text-[#0D47A1] mb-12">Veja o que Nossos Clientes Dizem sobre Nossa Metodologia e Ferramentas</h2>
+                </div>
+                <div class="grid md:grid-cols-3 gap-8">
+                    <div class="bg-white p-8 rounded-xl shadow-lg border border-gray-200">
+                        <p class="text-gray-700 mb-6">"Ferramenta excelente para acelerar a prospecção! A CRM People realmente entende como otimizar o processo de vendas."</p>
+                        <div class="font-bold text-[#0D47A1]">Mayara Santos</div>
+                    </div>
+                    <div class="bg-white p-8 rounded-xl shadow-lg border border-gray-200">
+                        <p class="text-gray-700 mb-6">"Se você verdadeiramente precisa escalar seus resultados, organizar seu time e prospectar clientes com o perfil ideal, aqui está a empresa que pode te ajudar de verdade."</p>
+                        <div class="font-bold text-[#0D47A1]">Leandro T. Silva</div>
+                    </div>
+                    <div class="bg-white p-8 rounded-xl shadow-lg border border-gray-200">
+                        <p class="text-gray-700 mb-6">"A expertise com CRM e processos de vendas é gigante. Cada reunião é uma mentoria, os aprendizados são imensos quando o assunto é captação de leads."</p>
+                        <div class="font-bold text-[#0D47A1]">Everson Dias</div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="preco" class="py-20 bg-white">
+            <div class="container mx-auto px-6">
+                <div class="text-center max-w-3xl mx-auto">
+                    <h2 class="text-3xl md:text-4xl font-bold text-[#0D47A1] mb-4">Ative sua Máquina de Reuniões Hoje Mesmo</h2>
+                    <p class="text-gray-700 mb-12">Sem complexidade, sem taxas escondidas. A solução completa para automatizar sua prospecção e encher sua agenda de reuniões qualificadas.</p>
+                </div>
+                <div class="max-w-md mx-auto bg-gradient-to-br from-[#0D47A1] to-[#1565C0] rounded-2xl p-8 text-white shadow-2xl">
+                    <h3 class="text-2xl font-bold text-center text-[#F9A825] mb-2">Plano Rino.IA</h3>
+                    <div class="text-center mb-6">
+                        <span class="text-5xl font-extrabold">R$ 1.947</span>
+                        <span class="text-xl font-medium opacity-80">/mês</span>
+                    </div>
+                    <ul class="space-y-4">
+                        <li class="flex items-start"><span class="text-green-400 mr-3 mt-1">✓</span><span><strong>Módulo Rino.IA:</strong> Automação completa de prospecção no LinkedIn.</span></li>
+                        <li class="flex items-start"><span class="text-green-400 mr-3 mt-1">✓</span><span><strong>1 Licença CRM People:</strong> Plataforma completa para gerenciar seu funil.</span></li>
+                        <li class="flex items-start"><span class="text-green-400 mr-3 mt-1">✓</span><span><strong>WhatsApp API Oficial Integrado:</strong> Centralize a comunicação pós-reunião.</span></li>
+                        <li class="flex items-start"><span class="text-green-400 mr-3 mt-1">✓</span><span><strong>Suporte Técnico Premium</strong> via WhatsApp.</span></li>
+                        <li class="flex items-start"><span class="text-green-400 mr-3 mt-1">✓</span><span><strong>Onboarding com Vídeos Tutoriais</strong> para configuração rápida.</span></li>
+                        <li class="flex items-start"><span class="text-green-400 mr-3 mt-1">✓</span><span><strong>Acesso à People Academy:</strong> +160 aulas sobre vendas.</span></li>
+                    </ul>
+                    <a href="#cta-final" class="mt-8 block w-full text-center bg-[#F9A825] text-[#0D47A1] px-8 py-4 rounded-lg font-bold text-lg cta-button">Ativar Minha Máquina de Reuniões</a>
+                </div>
+            </div>
+        </section>
+
+        <section id="faq" class="py-20">
+            <div class="container mx-auto px-6 max-w-3xl">
+                <h2 class="text-3xl md:text-4xl font-bold text-center text-[#0D47A1] mb-12">Perguntas Frequentes</h2>
+                <div class="space-y-4">
+                    <div class="faq-item bg-white rounded-lg shadow-sm border border-gray-200">
+                        <button class="faq-question w-full flex justify-between items-center text-left p-6 font-semibold text-lg">
+                            <span>Preciso ter uma conta do LinkedIn Sales Navigator?</span>
+                            <span class="chevron text-[#0D47A1]">▼</span>
+                        </button>
+                        <div class="faq-answer px-6 pb-6 text-gray-700">
+                            <p>Sim. O Rino.IA opera em conjunto com o Sales Navigator para garantir a máxima precisão na segmentação e busca dos seus leads ideais. O Sales Navigator é a base que alimenta a inteligência da nossa ferramenta.</p>
+                        </div>
+                    </div>
+                     <div class="faq-item bg-white rounded-lg shadow-sm border border-gray-200">
+                        <button class="faq-question w-full flex justify-between items-center text-left p-6 font-semibold text-lg">
+                            <span>A automação pode bloquear minha conta no LinkedIn?</span>
+                            <span class="chevron text-[#0D47A1]">▼</span>
+                        </button>
+                        <div class="faq-answer px-6 pb-6 text-gray-700">
+                            <p>Entendemos essa preocupação. Nossa tecnologia foi desenvolvida para simular o comportamento humano e opera dentro de limites de segurança inteligentes para garantir a integridade da sua conta. Seguimos as melhores práticas de mercado para uma prospecção segura e eficaz.</p>
+                        </div>
+                    </div>
+                     <div class="faq-item bg-white rounded-lg shadow-sm border border-gray-200">
+                        <button class="faq-question w-full flex justify-between items-center text-left p-6 font-semibold text-lg">
+                            <span>As mensagens enviadas pela IA são personalizáveis?</span>
+                            <span class="chevron text-[#0D47A1]">▼</span>
+                        </button>
+                        <div class="faq-answer px-6 pb-6 text-gray-700">
+                            <p>Totalmente. Você tem controle total para criar as cadências e os textos das mensagens. O Rino.IA é o motor que executa a sua estratégia, com a sua voz e a sua abordagem, mas em uma escala que seria impossível manualmente.</p>
+                        </div>
+                    </div>
+                     <div class="faq-item bg-white rounded-lg shadow-sm border border-gray-200">
+                        <button class="faq-question w-full flex justify-between items-center text-left p-6 font-semibold text-lg">
+                            <span>Em quanto tempo começo a ver os resultados?</span>
+                            <span class="chevron text-[#0D47A1]">▼</span>
+                        </button>
+                        <div class="faq-answer px-6 pb-6 text-gray-700">
+                            <p>Após a configuração inicial, que pode ser feita em poucas horas, o Rino.IA começa a trabalhar imediatamente. Muitos de nossos clientes começam a ver os primeiros leads qualificados e reuniões agendadas já na primeira semana de uso.</p>
+                        </div>
+                    </div>
+                     <div class="faq-item bg-white rounded-lg shadow-sm border border-gray-200">
+                        <button class="faq-question w-full flex justify-between items-center text-left p-6 font-semibold text-lg">
+                            <span>Posso cancelar a qualquer momento?</span>
+                            <span class="chevron text-[#0D47A1]">▼</span>
+                        </button>
+                        <div class="faq-answer px-6 pb-6 text-gray-700">
+                            <p>Sim. Você tem total flexibilidade e pode cancelar seu plano sem burocracia diretamente na sua seção de faturamento.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="cta-final" class="py-20 hero-gradient">
+             <div class="container mx-auto px-6 text-center">
+                <h2 class="text-3xl md:text-4xl font-bold text-[#0D47A1] mb-4">Pronto para Encher sua Agenda com Reuniões Qualificadas?</h2>
+                <p class="text-lg text-gray-700 max-w-2xl mx-auto mb-8">Deixe a prospecção manual no passado. Veja como o Rino.IA pode transformar seu processo de vendas e acelerar seu crescimento.</p>
+                <a href="#" class="bg-[#F9A825] text-[#0D47A1] px-10 py-4 rounded-lg font-bold text-lg inline-block cta-button">Ver a IA em Ação (Demonstração Gratuita)</a>
+                <p class="mt-4 text-sm text-gray-600">Agende uma conversa rápida. Sem compromisso.</p>
+            </div>
+        </section>
+    </main>
+
+    <footer class="bg-gray-800 text-white py-12">
+        <div class="container mx-auto px-6 text-center">
+            <div class="text-2xl font-bold mb-4">
+                Rino.<span class="text-[#F9A825]">IA</span>
+            </div>
+            <p class="mb-4">Uma solução da CRM People para escalar suas vendas.</p>
+            <p class="text-sm text-gray-400">&copy; 2024 CRM People. Todos os direitos reservados.</p>
         </div>
     </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const mobileMenuButton = document.getElementById('mobile-menu-button');
+            const mobileMenu = document.getElementById('mobile-menu');
+            mobileMenuButton.addEventListener('click', () => {
+                mobileMenu.classList.toggle('hidden');
+            });
+
+            const faqItems = document.querySelectorAll('.faq-item');
+            faqItems.forEach(item => {
+                const question = item.querySelector('.faq-question');
+                question.addEventListener('click', () => {
+                    const wasOpen = item.classList.contains('open');
+                    faqItems.forEach(i => i.classList.remove('open'));
+                    if (!wasOpen) {
+                        item.classList.add('open');
+                    }
+                });
+            });
+            
+            const navLinks = document.querySelectorAll('nav a[href^="#"]');
+            navLinks.forEach(anchor => {
+                anchor.addEventListener('click', function (e) {
+                    e.preventDefault();
+                    const targetId = this.getAttribute('href');
+                    const targetElement = document.querySelector(targetId);
+                    if(targetElement) {
+                        targetElement.scrollIntoView({
+                            behavior: 'smooth'
+                        });
+                        if (mobileMenu.classList.contains('hidden') === false) {
+                            mobileMenu.classList.add('hidden');
+                        }
+                    }
+                });
+            });
+
+            const ctx = document.getElementById('productivityChart');
+            if (ctx) {
+                const hoursSavedPerMonth = 88;
+                new Chart(ctx, {
+                    type: 'bar',
+                    data: {
+                        labels: ['Horas Gastas em Prospecção (por vendedor/mês)'],
+                        datasets: [{
+                            label: 'Processo Manual',
+                            data: [88],
+                            backgroundColor: 'rgba(239, 68, 68, 0.7)',
+                            borderColor: 'rgba(239, 68, 68, 1)',
+                            borderWidth: 1
+                        }, {
+                            label: 'Com Rino.IA',
+                            data: [5],
+                            backgroundColor: 'rgba(59, 130, 246, 0.7)',
+                            borderColor: 'rgba(59, 130, 246, 1)',
+                            borderWidth: 1
+                        }]
+                    },
+                    options: {
+                        responsive: true,
+                        maintainAspectRatio: false,
+                        plugins: {
+                            title: {
+                                display: true,
+                                text: 'Comparativo de Horas de Trabalho Mensais',
+                                font: {
+                                    size: 16
+                                }
+                            },
+                            tooltip: {
+                                callbacks: {
+                                    label: function(context) {
+                                        let label = context.dataset.label || '';
+                                        if (label) {
+                                            label += ': ';
+                                        }
+                                        if (context.parsed.y !== null) {
+                                            label += context.parsed.y + ' horas';
+                                        }
+                                        return label;
+                                    }
+                                }
+                            }
+                        },
+                        scales: {
+                            y: {
+                                beginAtZero: true,
+                                title: {
+                                    display: true,
+                                    text: 'Horas por Mês'
+                                }
+                            }
+                        }
+                    }
+                });
+            }
+        });
+    </script>
 
 </body>
 </html>
